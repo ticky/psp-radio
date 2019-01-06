@@ -6,12 +6,12 @@ type PSPEncodingType = 0 /*Latin*/ | 1 /*SJIS*/ | 2 /*EUC-KR*/;
 class PSP {
   // Sets whether the backlight should be kept on
   sysRadioBackLightAlwaysOn(value: PSPBoolean) {
-    void();
+    void(0)
   }
 
   // Sets whether debug mode is active
   sysRadioSetDebugMode(value: PSPBoolean) {
-    void();
+    void(0)
   }
   
   // Gets the current status of the radio player
@@ -49,15 +49,19 @@ class PSP {
   // Stops playing the current stream
   sysRadioStop() {
   }
+  
+  // ???
+  sysRadioSetAudioShiftWidth(value: number) {
+  }
 
   // Set some volume level
   sysRadioSetSubVolume(value: number) {
-    void();
+    void(0)
   }
   
   // Set the master volume
   sysRadioSetMasterVolume(value: number) {
-    void();
+    void(0)
   }
   
   // Check whether AAC+ streaming is supported
@@ -76,7 +80,7 @@ class PSP {
   }
   
   // Performs a GET request
-  sysRadioPrepareForHttpGet(url: string, userAgentForHttpGet: string, size, 0) {
+  sysRadioPrepareForHttpGet(url: string, userAgentForHttpGet: string, size: number, unknown: number) {
   }
   
   // Gets the status (_not_ HTTP status!) of the last HTTP request
@@ -116,4 +120,4 @@ class PSP {
   }
 }
 
-window.psp = new PSP();
+var psp = new PSP();
