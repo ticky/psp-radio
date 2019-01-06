@@ -108,7 +108,7 @@ class PSP {
   }
   
   // Gets the index of keyword_name in the current string operation
-  sysRadioStrIndexOf(keyword_name: string, currentPos: number) {
+  sysRadioStrIndexOf(needle: string, currentPos: number) {
   }
   
   // Returns a substring from the current string operation
