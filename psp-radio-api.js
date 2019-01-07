@@ -66,8 +66,7 @@ class PSP {
   
   // Check whether AAC+ streaming is supported
   sysRadioCapabilityCheck() {
-    // TODO: Use the media object to actually check for "audio/aacp" support
-    return false;
+    return new Audio().canPlayType("audio/aacp") !== '';
   }
 
   // Play a radio effect sound
