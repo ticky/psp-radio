@@ -3,7 +3,53 @@
 type PSPBoolean = 0 | 1;
 type PSPEncodingType = 0 /*Latin*/ | 1 /*SJIS*/ | 2 /*EUC-KR*/;
 
+/** Class representing the PSP Internet radio player API */
 class PSP {
+  //## Methods for starting and stopping playback
+
+  /**
+   * Start playback by specifying URL of audio data stream
+   */
+  sysRadioPlayStream(url: string, userAgent: string): (0 | -1) {
+  }
+
+  /**
+   * Start playback by specifying URL of PLS file
+   */
+  sysRadioPlayPls(plsURL: string, userAgentForGetPls: string, userAgentForPlayStream: string) {
+    // TODO: Forward to `sysRadioPlayM3u` for max compatibility
+  }
+
+  /**
+   * Start playback by specifying URL of M3U file
+   */
+  sysRadioPlayM3u(m3uURL: string, userAgentForGetM3u: string, userAgentForPlayStream: string) {
+  }
+
+  /**
+   * Stop playback
+   */
+  sysRadioStop() {
+  }
+  
+  // ## Methods for controlling output volume
+  
+  /**
+   * Set master volume level
+   */
+  sysRadioSetMasterVolume(value: number) {
+    void(0)
+  }
+
+  /**
+   * Set sub volume level
+   */
+  sysRadioSetSubVolume(value: number) {
+    void(0)
+  }
+  
+  // ## TODO
+
   // Sets whether the backlight should be kept on
   sysRadioBackLightAlwaysOn(value: PSPBoolean) {
     void(0)
@@ -33,35 +79,13 @@ class PSP {
   // Gets the current stream's sample rate in kHz
   sysRadioGetSamplingRate() {
   }
-
-  // Starts playing the specified stream
-  sysRadioPlayStream(url: string, userAgent: string) {
-  }
-
-  // Starts playing the specified PLS stream
-  sysRadioPlayPls(plsURL: string, userAgentForGetPls: string, userAgentForPlayStream: string) {
-  }
   
   // Returns the current stream URL
   sysRadioGetStreamUrl() {
   }
-
-  // Stops playing the current stream
-  sysRadioStop() {
-  }
   
   // ???
   sysRadioSetAudioShiftWidth(value: number) {
-  }
-
-  // Set some volume level
-  sysRadioSetSubVolume(value: number) {
-    void(0)
-  }
-  
-  // Set the master volume
-  sysRadioSetMasterVolume(value: number) {
-    void(0)
   }
   
   // Check whether AAC+ streaming is supported
