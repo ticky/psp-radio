@@ -13,6 +13,8 @@ type PSPBoolean = 0 | 1;
  */
 type CharacterCodeConversionType = 0 | 1 | 2;
 
+const CORS_PROXY = 'https://cors-anywhere.herokuapp.com';
+
 class PromiseAdapter {
   state: 'pending' | 'rejected' | 'resolved';
   result: string;
@@ -60,15 +62,69 @@ class PSP {
   _masterPlayer: HTMLAudioElement;
   _subPlayer: HTMLAudioElement;
   _httpRequest: PromiseAdapter;
+  _streamMetadataUpdatedAt: number;
+  _streamMetadata: ?Element;
 
   constructor() {
     this._masterPlayer = new Audio();
     this._subPlayer = new Audio();
 
     document.addEventListener('DOMContentLoaded', () => {
-      document.body.appendChild(this._masterPlayer);
-      document.body.appendChild(this._subPlayer);
+      document.body && document.body.appendChild(this._masterPlayer);
+      document.body && document.body.appendChild(this._subPlayer);
     });
+  }
+
+  _maybeUpdateMetadata() {
+    // TODO: (NOTE: This will work for Shoutcast, who knows about Icecast)
+    // 1. Fetch the `url`, check content-type
+    // 2. Detect playlist format, figure out the actual stream URL and number
+    // 3. Store the URL for fetching the statistics URL (`/statistics` relative to stream URL (see http://forums.shoutcast.com/showthread.php?t=401315))
+    // 4. Cache metadata from statistics XML
+    // 5. Whenever statistics methods (see "Methods for getting playback quality numeric values and playback information strings") are called, use cached metadata and enqueue a metadata update
+
+    // Don't update super often
+    if (this._streamMetadataUpdatedAt >= Date.now() - 5000) {
+      return;
+    }
+
+    this._streamMetadataUpdatedAt = Date.now();
+
+    // If the player is pointed at a downloaded playlist file
+    if (this._masterPlayer.src && this._masterPlayer.src.slice(0, 5) === 'data:') {
+      // Pull the playlist data back out of the data URI
+      const [ type, playlistBase64 ] = this._masterPlayer.src.slice(5).split(';base64,');
+      const playlistLines = atob(playlistBase64).trim().split(/\r?\n/g).filter((line) => line.length > 0);
+
+      let targetUrl = null;
+
+      if (type === 'audio/x-scpls') {
+        const file1Line = playlistLines.find((line) => /^file1=/i.test(line.trim()));
+        if (file1Line) {
+          targetUrl = file1Line.split('=').slice(1).join('');
+        }
+      } else if (type === 'audio/x-mpegurl') {
+        targetUrl = playlistLines.find((line) => /^[^#]/i.test(line.trim()));
+      }
+
+      if (targetUrl) {
+        let metaUrl = new URL(targetUrl);
+        let originalPathname = metaUrl.pathname;
+        metaUrl.pathname = '/statistics'
+
+        fetch(`${CORS_PROXY}/${metaUrl.toString()}`, { mode: 'cors' }).then(
+          (response) => {
+            if (response.ok && response.status >= 200 && response.status < 300) {
+              response.text().then((text) => {
+                let xml = (new window.DOMParser()).parseFromString(text, 'application/xml');
+
+                this._streamMetadata = Array.from(xml.querySelectorAll('STREAM')).find((element) => element.querySelector('STREAMPATH').innerHTML === originalPathname) || null;
+              });
+            }
+          }
+        )
+      }
+    }
   }
 
   //## Methods for starting and stopping playback
@@ -84,7 +140,43 @@ class PSP {
    * * `-1`: Error
    */
   sysRadioPlayStream(url: string, userAgentName: string): (0 | -1) {
-    return -1;
+    const headers = new Headers();
+    headers.append("User-Agent", userAgentName);
+
+    fetch(`${CORS_PROXY}/${url}`, { headers, mode: 'cors' }).then(
+      (response) => {
+        if (response.ok && response.status >= 200 && response.status < 300) {
+          response.text().then(
+            (text) => {
+              const playlistLines = text.trim().split(/\r?\n/g).filter((line) => line.length > 0);
+
+              // Playlist format detection
+              if (playlistLines[0] === '[playlist]') {
+                this._masterPlayer.src = `data:audio/x-scpls;base64,${btoa(text)}`;
+              } else if (playlistLines[0] === '#EXTM3U') {
+                this._masterPlayer.src = `data:audio/x-mpegurl;base64,${btoa(text)}`;
+              } else {
+                this._masterPlayer.src = url;
+              }
+
+              this._masterPlayer.play();
+
+              // This triggers a refresh of the metadata cache
+              this.sysRadioGetContentMetaInfo(0);
+            }
+          );
+        }
+      },
+      () => {
+        this._masterPlayer.src = url;
+        this._masterPlayer.play();
+
+        // This triggers a refresh of the metadata cache
+        this.sysRadioGetContentMetaInfo(0);
+      }
+    );
+
+    return 0;
   }
 
   /**
@@ -99,9 +191,7 @@ class PSP {
    * * `-1`: Error
    */
   sysRadioPlayPls(url: string, userAgentName0: string, userAgentName1: string): (0 | -1) {
-    this._masterPlayer.src = url;
-    this._masterPlayer.play();
-    return 0;
+    return this.sysRadioPlayStream(url, userAgentName0);
   }
 
   /**
@@ -116,9 +206,7 @@ class PSP {
    * * `-1`: Error
    */
   sysRadioPlayM3u(url: string, userAgentName0: string, userAgentName1: string): (0 | -1) {
-    this._masterPlayer.src = url;
-    this._masterPlayer.play();
-    return 0;
+    return this.sysRadioPlayStream(url, userAgentName0);
   }
 
   /**
@@ -129,6 +217,19 @@ class PSP {
    * * `1`: Sub audio data stream
    */
   sysRadioStop(mode?: 0 | 1): 0 {
+    switch (mode) {
+      case 1:
+        this._subPlayer.pause();
+        this._subPlayer.src = '';
+        break;
+    
+      case 0:
+      default:
+        this._masterPlayer.pause();
+        this._masterPlayer.src = '';
+        break;
+    }
+
     return 0;
   }
   
@@ -296,7 +397,7 @@ class PSP {
   ): 0 | -1 {
     const headers = new Headers();
     headers.append("User-Agent", userAgentName);
-    this._httpRequest = new PromiseAdapter(() => fetch(`https://cors-anywhere.herokuapp.com/${url}`, { headers, mode: 'cors' }));
+    this._httpRequest = new PromiseAdapter(() => fetch(`${CORS_PROXY}/${url}`, { headers, mode: 'cors' }));
     return 0;
   }
 
@@ -408,7 +509,17 @@ class PSP {
    * @returns A content meta information string is returned.
    */
   sysRadioGetContentMetaInfo(charCodeConvertOption: CharacterCodeConversionType): string {
-    return 'sysRadioGetContentMetaInfo';
+    this._maybeUpdateMetadata();
+
+    if (this._streamMetadata) {
+      const titleElement = this._streamMetadata.querySelector('SONGTITLE');
+
+      if (titleElement) {
+        return titleElement.innerHTML;
+      }
+    }
+
+    return '';
   }
 
   /**
@@ -418,6 +529,16 @@ class PSP {
    *          If the Internet radio player is not connected, 0 is returned.
    */
   sysRadioGetBitRate(): number {
+    this._maybeUpdateMetadata();
+
+    if (this._streamMetadata) {
+      const bitrateElement = this._streamMetadata.querySelector('BITRATE');
+
+      if (bitrateElement) {
+        return parseInt(bitrateElement.innerHTML) * 1000;
+      }
+    }
+
     return 0;
   }
 
@@ -428,6 +549,16 @@ class PSP {
    *          If the Internet radio player is not connected, 0 is returned.
    */
   sysRadioGetSamplingRate(): number {
+    this._maybeUpdateMetadata();
+
+    if (this._streamMetadata) {
+      const samplerateElement = this._streamMetadata.querySelector('SAMPLERATE');
+
+      if (samplerateElement) {
+        return parseInt(samplerateElement.innerHTML);
+      }
+    }
+
     return 0;
   }
 
@@ -450,6 +581,16 @@ class PSP {
    *          If the Internet radio player is not connected, a string with length 0 is returned.
    */
   sysRadioGetStreamTitle(/*contentMetaInfoEncodeType: CharacterCodeConversionType*/): string {
+    this._maybeUpdateMetadata();
+
+    if (this._streamMetadata) {
+      const serverTitleElement = this._streamMetadata.querySelector('SERVERTITLE');
+
+      if (serverTitleElement) {
+        return serverTitleElement.innerHTML;
+      }
+    }
+
     return '';
   }
 
@@ -460,6 +601,16 @@ class PSP {
    *          If the Internet radio player is not connected, a string with length 0 is returned.
    */
   sysRadioGetRelatedPageUrl(): string {
+    this._maybeUpdateMetadata();
+
+    if (this._streamMetadata) {
+      const serverUrlElement = this._streamMetadata.querySelector('SERVERURL');
+
+      if (serverUrlElement) {
+        return serverUrlElement.innerHTML;
+      }
+    }
+
     return '';
   }
 
