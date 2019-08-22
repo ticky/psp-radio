@@ -13,9 +13,7 @@ type PSPBoolean = 0 | 1;
  */
 type CharacterCodeConversionType = 0 | 1 | 2;
 
-const CORS_PROXY = 'https://cors-anywhere.herokuapp.com';
-
-class PromiseAdapter {
+export class PromiseAdapter {
   state: 'pending' | 'rejected' | 'resolved';
   result: string;
   _promise: Promise<any>;
@@ -57,15 +55,17 @@ class PromiseAdapter {
 }
 
 /** Class representing the PSP Internet radio player API */
-class PSP {
+export default class PSP {
   _strOperationString: ?string;
   _masterPlayer: HTMLAudioElement;
   _subPlayer: HTMLAudioElement;
   _httpRequest: PromiseAdapter;
   _streamMetadataUpdatedAt: number;
   _streamMetadata: ?Element;
+  _requestBaseURL: ?string;
 
-  constructor() {
+  constructor(baseUrl: string) {
+    this._requestBaseURL = baseUrl;
     this._masterPlayer = new Audio();
     this._subPlayer = new Audio();
 
@@ -112,7 +112,7 @@ class PSP {
         let originalPathname = metaUrl.pathname;
         metaUrl.pathname = '/statistics'
 
-        fetch(`${CORS_PROXY}/${metaUrl.toString()}`, { mode: 'cors' }).then(
+        fetch(`${this._requestBaseURL}/${metaUrl.toString()}`, { mode: 'cors' }).then(
           (response) => {
             if (response.ok && response.status >= 200 && response.status < 300) {
               response.text().then((text) => {
@@ -143,38 +143,58 @@ class PSP {
     const headers = new Headers();
     headers.append("User-Agent", userAgentName);
 
-    fetch(`${CORS_PROXY}/${url}`, { headers, mode: 'cors' }).then(
-      (response) => {
-        if (response.ok && response.status >= 200 && response.status < 300) {
-          response.text().then(
-            (text) => {
-              const playlistLines = text.trim().split(/\r?\n/g).filter((line) => line.length > 0);
+    fetch(`${this._requestBaseURL}/${url}`, { headers, mode: 'cors' })
+      .then(
+        (response) => {
+          if (response.ok && response.status >= 200 && response.status < 300) {
+            return response.text().then(
+              (text) => {
+                const playlistLines = text.trim().split(/\r?\n/g).filter((line) => line.length > 0);
 
-              // Playlist format detection
-              if (playlistLines[0] === '[playlist]') {
-                this._masterPlayer.src = `data:audio/x-scpls;base64,${btoa(text)}`;
-              } else if (playlistLines[0] === '#EXTM3U') {
-                this._masterPlayer.src = `data:audio/x-mpegurl;base64,${btoa(text)}`;
-              } else {
-                this._masterPlayer.src = url;
+                // Playlist format detection
+                if (playlistLines[0] === '[playlist]') {
+                  this._masterPlayer.src = `data:audio/x-scpls;base64,${btoa(text)}`;
+                } else if (playlistLines[0] === '#EXTM3U') {
+                  this._masterPlayer.src = `data:audio/x-mpegurl;base64,${btoa(text)}`;
+                } else {
+                  this._masterPlayer.src = url;
+                }
+
+                return this._masterPlayer.play().then(
+                  (played) => {
+                    console.log("Playback started OK!", played);
+
+                    // This triggers a refresh of the metadata cache
+                    this.sysRadioGetContentMetaInfo(0);
+                  },
+                  (error) => {
+                    console.error(`Failed to start playback: ${error.toString()}`);
+                    debugger;
+                  }
+                );
               }
+            );
+          }
 
-              this._masterPlayer.play();
+          return Promise.reject();
+      })
+      .catch(
+        () => {
+          this._masterPlayer.src = url;
+          return this._masterPlayer.play().then(
+            (played) => {
+              console.log("Playback started OK!", played);
 
               // This triggers a refresh of the metadata cache
               this.sysRadioGetContentMetaInfo(0);
+            },
+            (error) => {
+              console.error(`Failed to start fallback playback: ${error.toString()}`);
+              debugger;
             }
           );
         }
-      },
-      () => {
-        this._masterPlayer.src = url;
-        this._masterPlayer.play();
-
-        // This triggers a refresh of the metadata cache
-        this.sysRadioGetContentMetaInfo(0);
-      }
-    );
+      );
 
     return 0;
   }
@@ -397,7 +417,7 @@ class PSP {
   ): 0 | -1 {
     const headers = new Headers();
     headers.append("User-Agent", userAgentName);
-    this._httpRequest = new PromiseAdapter(() => fetch(`${CORS_PROXY}/${url}`, { headers, mode: 'cors' }));
+    this._httpRequest = new PromiseAdapter(() => fetch(`${this._requestBaseURL}/${url}`, { headers, mode: 'cors' }));
     return 0;
   }
 
@@ -997,8 +1017,3 @@ class PSP {
     }
   }
 }
-
-// $FlowFixMe: This is required
-navigator.mimeTypes["application/x-psp-extplugin"] = { enabledPlugin: true };
-
-var psp = new PSP();

@@ -1,0 +1,15 @@
+body {
+  font-family: eurostile, sans-serif;
+}
+
+#psp {
+  background-image: url(../images/psp.png);
+  width: 726px;
+  height: 584px;
+  margin: 0 auto;
+}
+
+#psp > iframe {
+  margin-top: 37px;
+  margin-left: 123px;
+}

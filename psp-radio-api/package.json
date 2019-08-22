@@ -1,0 +1,21 @@
+{
+  "name": "psp-radio-api",
+  "version": "1.0.0",
+  "description": "Reimplementation of the PSP Internet radio player API",
+  "main": "lib/index.js",
+  "repository": "https://github.com/ticky/psp-radio.git",
+  "author": "Jessica Stokes <hello@jessicastokes.net>",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "yarn build",
+    "build": "babel src --out-dir lib --source-maps inline",
+    "document": "documentation build -f html -o docs"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-flow": "^7.0.0",
+    "documentation": "^9.1.1",
+    "flow-bin": "^0.89.0"
+  }
+}

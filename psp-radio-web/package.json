@@ -1,0 +1,21 @@
+{
+  "name": "psp-radio-web",
+  "version": "1.0.0",
+  "description": "PSP Internet radio player web emulator",
+  "repository": "https://github.com/ticky/psp-radio.git",
+  "author": "Jessica Stokes <hello@jessicastokes.net>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel src/*.html src/scripts/psp-radio-shim.js",
+    "build": "parcel build src/*.html src/scripts/psp-radio-shim.js"
+  },
+  "staticFiles": {
+    "staticPath": "src/static",
+    "watcherGlob": "**"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "parcel-bundler": "^1.11.0",
+    "parcel-plugin-static-files-copy": "^2.0.0"
+  }
+}

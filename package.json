@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "workspaces": [
+    "psp-radio-api",
+    "psp-radio-web"
+  ]
+}

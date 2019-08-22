@@ -1,0 +1,5 @@
+/psp-radio-api/docs
+/psp-radio-api/lib
+/psp-radio-web/dist
+node_modules
+.cache

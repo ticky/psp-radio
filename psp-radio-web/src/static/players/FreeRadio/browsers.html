@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<title>FreeRadio - Browsers</title>
+<link href="./css/fpr.css" rel="stylesheet" type="text/css" />
+<script>var psp = parent.frames[0].document.getElementById('psp');</script>
+<script type="text/javascript" src="./js/fpr.js"></script>
+<script type="text/javascript" src="./js/playlist.js"></script>
+<script type="text/javascript" src="./js/user_theme.js"></script>
+</head>
+<body>
+<img class="navicon" src="./images/browsericon.png"/> <b>Browsers</b><br/>
+<a target="_blank" href="web.html">Web browser</a><br/>
+<a target="_blank" href="file:/psp/system/browser/bookmarks.html">Bookmarks</a><br/>
+<a target="_top" href="http://radio.psp.dl.playstation.net/psp/radio/player/PLAYER_I/index.html">Official Sony Shoutcast Player</a><br/>
+<a target="_top" href="http://radio.psp.dl.playstation.net/psp/radio/player/PLAYER_II/index.html">Official Sony Icecast Player</a><br/>
+<hr/>
+<b>Convert a remote playlist into a stream page:</b><br/>
+Remote Playlist URL: <input style="width: 60%;" id="user_playlist" value="http://freeplay.unaligned.org/playlist.m3u"/> <input type="button" value="Play" onclick="getRemotePlaylist(document.getElementById('user_playlist').value);"/>
+</body>
+</html>

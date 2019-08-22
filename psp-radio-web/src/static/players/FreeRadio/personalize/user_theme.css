@@ -1,0 +1,27 @@
+#bg {
+	background-image: url('../images/BG.png');
+	background-repeat: repeat-x;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 480px;
+	height: 272px;
+	z-index: -1;
+}
+
+#meta {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 480px;
+	height: 20px 
+	background-image: url('../images/BG.png');
+}
+
+#stopbutton {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	text-align: right;
+	z-index: 1;
+}
