@@ -15,7 +15,7 @@
     "@babel/cli": "7.7.0",
     "@babel/core": "7.7.2",
     "@babel/preset-flow": "7.0.0",
-    "documentation": "9.3.1",
+    "documentation": "12.1.4",
     "flow-bin": "0.115.0"
   }
 }
