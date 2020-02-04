@@ -12,8 +12,8 @@
     "document": "documentation build -f html -o docs"
   },
   "devDependencies": {
-    "@babel/cli": "7.8.3",
-    "@babel/core": "7.8.3",
+    "@babel/cli": "7.8.4",
+    "@babel/core": "7.8.4",
     "@babel/preset-flow": "7.8.3",
     "documentation": "12.1.4",
     "flow-bin": "0.117.0"
