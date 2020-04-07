@@ -736,6 +736,8 @@ export default class PSP {
    * @returns The detected position (units: bytes).
    */
   sysRadioStrIndexOf(pattern: string, startPos: number): number {
+    // TODO: the SCEI implementation appears to have a bug
+    //       where it returns the *second* index
     return this._strOperationString
       ? this._strOperationString.indexOf(pattern, startPos)
       : -1;
