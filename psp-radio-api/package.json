@@ -9,7 +9,7 @@
   "scripts": {
     "prepublish": "yarn build",
     "build": "babel src --out-dir lib --source-maps inline",
-    "document": "documentation build -f html -o docs"
+    "document": "documentation build src/** -f html -o docs"
   },
   "devDependencies": {
     "@babel/cli": "7.8.4",
