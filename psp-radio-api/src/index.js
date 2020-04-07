@@ -959,12 +959,16 @@ export default class PSP {
   /**
    * Get PSP™ system's START button toggle status
    * 
+   * On a real PSP™ system, pressing the START button toggles this value.
+   * It is `1` by default, and when you press the START button it is toggled between that and `0`.
+   * Some radio players use this to toggle their mute function.
+   * 
    * @returns
-   * * `0`: Status value when the PSP™ system's START button is considered to be a toggle switch is 0.
-   * * `1`: Status value when the PSP™ system's START button is considered to be a toggle switch is 1.
+   * * `1`: Returned when the START button has not been toggled.
+   * * `0`: Returned when the START button has been toggled.
    */
   sysRadioGetStartButtonToggleStatus(): PSPBoolean {
-    return 0;
+    return 1;
   }
 
   /**
