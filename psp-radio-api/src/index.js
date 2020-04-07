@@ -801,7 +801,7 @@ export default class PSP {
    * * `2`: Convert string specified by str to EUC-KR (CP949).
    * @param str - UTF-8 string to be converted
    * 
-   * @returns Converted string.
+   * @returns Converted string. **Note** that this implementation simply returns the string unaltered, expecting modern web browser implementations to handle the UTF-8 string.
    */
   sysRadioCharacterCodeConvert(charCodeConvertOption: CharacterCodeConversionType, str: string): string {
     return str;
