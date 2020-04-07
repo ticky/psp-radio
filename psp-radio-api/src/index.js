@@ -511,7 +511,7 @@ export default class PSP {
    * @returns An integer value in the range 0 ≦ `result` ≦ 255.
    */
   sysRadioGetNetworkBandQuality(): number {
-    return 0;
+    return 255;
   }
 
   /**
@@ -660,7 +660,7 @@ export default class PSP {
    * @returns An integer value in the range 0 ≦ `result` ≦ 255 is returned.
    */
   sysRadioGetStreamBufferLevel(): number {
-    return 0;
+    return 255;
   }
 
   // ## Methods for finding files on the Memory Stick Duo™
