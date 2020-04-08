@@ -40,6 +40,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/clip_india/icon.png'
   },
   {
+    title: 'J-POP',
+    url: '../players/clip_jpop/index.html',
+    iconUrl: '../players/clip_jpop/icon.png'
+  },
+  {
     title: 'FreeRadio 1.7',
     url: '../players/FreeRadio/index.html',
     iconUrl: '../players/FreeRadio/icon.png'
