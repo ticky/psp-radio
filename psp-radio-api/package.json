@@ -13,8 +13,8 @@
   },
   "devDependencies": {
     "@babel/cli": "7.8.4",
-    "@babel/core": "7.8.4",
-    "@babel/preset-flow": "7.8.3",
+    "@babel/core": "7.9.0",
+    "@babel/preset-flow": "7.9.0",
     "documentation": "12.1.4",
     "flow-bin": "0.122.0"
   },
