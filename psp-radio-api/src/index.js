@@ -73,15 +73,11 @@ export class ObservableFetchAdapter {
 /**
  * Class representing the PSP Internet radio player API
  *
- * **Audio Sources:**
- * Media element source: https://developer.mozilla.org/en-US/docs/Web/API/MediaElementAudioSourceNode
- * Sine oscillator: https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode
- * White noise: https://noisehack.com/generate-noise-web-audio-api/#demo
- *
- * **Gain, Effects & Analysis:**
- * Gain node: https://developer.mozilla.org/en-US/docs/Web/API/GainNode
- * Analysis node: https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode
- * Filter node: https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
+ * The PSP Internet radio player has a rather complicated audio pipeline we need to replicate.
+ * It features dual audio streams which automatically cross-fade when changing channels, a suite of basic audio effects,
+ * two noise generators with independent gain and frequency settings, one pf which is modulated with morse code,
+ * peak and average metering for the current audio stream, and finally a "click" sound effect generator to emulate radio buttons.
+ * And it's all connected as set out in this diagram, adapted and expanded from SCEI's own documentation:
  *
  * ```
  * ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
@@ -121,7 +117,21 @@ export class ObservableFetchAdapter {
  * ││                             │                                                                        │  ┗━━━━━━━━━━━━━━━━━━┛   │
  * │ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘│
  * └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
- * ````
+ * ```
+ *
+ * Finally, some resources for my future self on implementing this audio pipeline:
+ *
+ * **Audio Sources:**
+ *  * Media element source: https://developer.mozilla.org/en-US/docs/Web/API/MediaElementAudioSourceNode
+ *  * Sine oscillator: https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode
+ *  * White noise: https://noisehack.com/generate-noise-web-audio-api/#demo
+ *
+ * **Gain, Effects & Analysis:**
+ *  * Gain node: https://developer.mozilla.org/en-US/docs/Web/API/GainNode
+ *  * Analysis node: https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode
+ *  * Filter node: https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
+ *
+ * Good luck, pal, I think you're going to need it! <3
  */
 export default class PSP {
   _strOperationString: ?string;
