@@ -20,6 +20,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/clip_rock/icon.png'
   },
   {
+    title: 'BRITISH CULTURE',
+    url: '../players/clip_british/index.html',
+    iconUrl: '../players/clip_british/icon.png'
+  },
+  {
     title: 'FreeRadio 1.7',
     url: '../players/FreeRadio/index.html',
     iconUrl: '../players/FreeRadio/icon.png'
