@@ -142,6 +142,9 @@ export default class PSP {
   _streamMetadata: ?Element;
   _requestBaseURL: string;
 
+  /**
+   * @param baseUrl - the base URL for all HTTP requests. In the case of psp-radio-web, this is used to forward requests through a CORS proxy server.
+   */
   constructor(baseUrl: string) {
     this._requestBaseURL = baseUrl || '';
     this._masterPlayer = new Audio();
