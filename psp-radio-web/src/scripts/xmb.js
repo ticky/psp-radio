@@ -80,6 +80,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/os_JazzOrNot/icon.png'
   },
   {
+    title: 'Like On The Radio',
+    url: '../players/os_LikeOnTheRadio/index.html',
+    iconUrl: '../players/os_LikeOnTheRadio/icon.png'
+  },
+  {
     title: 'Hip Me, Hop You',
     url: '../players/os_HipMeHopYou/index.html',
     iconUrl: '../players/os_HipMeHopYou/icon.png'
