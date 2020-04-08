@@ -244,7 +244,7 @@ function httpGetProc () {
 	if ( 0 < lastTimeStationInfo.streamUrl.length ) {
 		var i, N=(stationArray.length);
 		var bFoundIt=false;
-		// ”z—ñ’†‚©‚ç’T‚·
+		// é…åˆ—ä¸­ã‹ã‚‰æŽ¢ã™
 		for ( i = 0; i < N; i++ ) {
 			if ( ( lastTimeStationInfo.stationName
 				   == stationArray [i].stationName )
@@ -258,13 +258,13 @@ function httpGetProc () {
 				break;
 			}
 		}
-		// Œ©‚Â‚©‚Á‚½ê‡
+		// è¦‹ã¤ã‹ã£ãŸå ´åˆ
 		if ( bFoundIt ) {
 			currentStation = i;
 		}
-		// Œ©‚Â‚©‚ç‚È‚©‚Á‚½ê‡
+		// è¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸå ´åˆ
 		else {
-			// ”z—ñ‚Ìæ“ª‚É’Ç‰Á
+			// é…åˆ—ã®å…ˆé ­ã«è¿½åŠ 
 			stationArray.unshift
 				({stationName: lastTimeStationInfo.stationName,
 					  comment: lastTimeStationInfo.comment,
@@ -291,7 +291,7 @@ function httpGetProc () {
 
 	bForcedExitFlag = false;
 	if ( isPSPRadio ) psp.sysRadioBusyIndicator (0);
-	// ƒAƒjƒ[ƒVƒ‡ƒ“‚ðŠJŽn
+	// ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’é–‹å§‹
 	timerID_for_clipAnimProc = setTimeout (clipAnimProc, 0);
 	streamTitle = "";
 	bBusy = false;
@@ -306,13 +306,13 @@ function tune ( stationNumber, mode ) {
 	if ( stationArray [stationNumber].id.length == 0 ) mode = 1;
 	if ( isPSPRadio ) {
 		psp.sysRadioBusyIndicator (1);
-		if ( mode == 0 ) { // PLS ‚Ì URL Žw’è‚ÅÄ¶
+		if ( mode == 0 ) { // PLS ã® URL æŒ‡å®šã§å†ç”Ÿ
 			var stationID = stationArray [stationNumber].id;
 			var plsURL = shoutcastPlsUrl_A + stationID + shoutcastPlsUrl_B;
 			psp.sysRadioPlayPls
 				(plsURL, userAgentForGetPls, userAgentForPlayStream);
 		}
-		else { // ƒXƒgƒŠ[ƒ€ URL Žw’è‚ÅÄ¶
+		else { // ã‚¹ãƒˆãƒªãƒ¼ãƒ  URL æŒ‡å®šã§å†ç”Ÿ
 			psp.sysRadioPlayStream
 				(stationArray [stationNumber].streamUrl,
 				 userAgentForPlayStream);
@@ -344,16 +344,16 @@ function streamStatusCheckProc () {
 		{
 			var result = psp.sysRadioGetPlayerStatus ();
 			switch ( result ) {
-			case -1: // ƒGƒ‰[
+			case -1: // ã‚¨ãƒ©ãƒ¼
 				break;
-			case 1: // Ä¶’†
-			case 4: // •ú‘—ƒT[ƒo[‚ÖÚ‘±’†
-			case 0: // ˆ—’†‚Å‚È‚¢
+			case 1: // å†ç”Ÿä¸­
+			case 4: // æ”¾é€ã‚µãƒ¼ãƒãƒ¼ã¸æŽ¥ç¶šä¸­
+			case 0: // å‡¦ç†ä¸­ã§ãªã„
 				streamStatusCheckProcWorkState = 2;
 				connectionTimeoutCountdown = 20;
 				break;
-			case 2: // pls ‚ ‚é‚¢‚Í m3u ƒf[ƒ^‚ðŽæ“¾’†
-			case 3: // pls ‚ ‚é‚¢‚Í m3u ƒf[ƒ^‚ð‰ðÍ’†
+			case 2: // pls ã‚ã‚‹ã„ã¯ m3u ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ä¸­
+			case 3: // pls ã‚ã‚‹ã„ã¯ m3u ãƒ‡ãƒ¼ã‚¿ã‚’è§£æžä¸­
 			default:
 				break;
 			}
@@ -365,16 +365,16 @@ function streamStatusCheckProc () {
 			streamTitle = "";
 		}
 		break;
-	case 3: // Ä¶ó‘Ô‚ðŠÄŽ‹‚µ‘±‚¯‚é
+	case 3: // å†ç”ŸçŠ¶æ…‹ã‚’ç›£è¦–ã—ç¶šã‘ã‚‹
 	default:
 		if ( clipState ) psp.sysRadioSetSubVolume (255);
 		else psp.sysRadioSetSubVolume (0);
 		{
 			var result = psp.sysRadioGetPlayerStatus ();
 			switch ( result ) {
-			case 0: // ˆ—’†‚Å‚È‚¢
+			case 0: // å‡¦ç†ä¸­ã§ãªã„
 				break;
-			case -1: // ƒGƒ‰[
+			case -1: // ã‚¨ãƒ©ãƒ¼
 				if ( ! bBusy ) psp.sysRadioBusyIndicator (0);
 				bConnectError = true;
 				if ( !strictlyOneStation && numStationList )
@@ -385,7 +385,7 @@ function streamStatusCheckProc () {
 				writeIntoCookie ();
 				streamTitle = "";
 				break;
-			case 1: // Ä¶’†
+			case 1: // å†ç”Ÿä¸­
 				bConnectError = false;
 				if ( ! bBusy ) psp.sysRadioBusyIndicator (0);
 				break;
@@ -589,7 +589,7 @@ function makeStationList ( stationListString ) {
 				bExit = true;
 			}
 			else {
-				// ’jmt="audio/mpeg" ‚Ì‚à‚Ì‚Ì‚Ý‚ðˆ—‚·‚éŽ–
+				// æ³¨ï¼‰mt="audio/mpeg" ã®ã‚‚ã®ã®ã¿ã‚’å‡¦ç†ã™ã‚‹äº‹
 				if ( ( bAacpSupport && stationRec.mt == "audio/aacp" )
 					 || stationRec.mt == "audio/mpeg" ) {
 					stationList.push
@@ -614,7 +614,7 @@ function makeStationList ( stationListString ) {
     }
 	psp.sysRadioStrOperationTerminate ();
 
-	// ‹­§’†’f‚³‚ê‚½ê‡‚ÍA”z—ñ‚ðˆê’U”jŠü‚µ‹ó‚Ì”z—ñ‚ð•Ô‚·B
+	// å¼·åˆ¶ä¸­æ–­ã•ã‚ŒãŸå ´åˆã¯ã€é…åˆ—ã‚’ä¸€æ—¦ç ´æ£„ã—ç©ºã®é…åˆ—ã‚’è¿”ã™ã€‚
 	if ( bForcedExitFlag ) {
 		delete stationList;
 		stationList = new Array (0);
@@ -676,7 +676,7 @@ function updateStreamUrl () {
 
 /*----*/
 function getCookieValue ( keyword ) {
-	// ƒNƒbƒL[‚©‚ç‚Ì’l‚Ì“Ç‚Ýo‚µ
+	// ã‚¯ãƒƒã‚­ãƒ¼ã‹ã‚‰ã®å€¤ã®èª­ã¿å‡ºã—
 	keyword += ":";
 	var cookieValue;
 	if ( document.cookie ) cookieValue = unescape (document.cookie) + ";";
@@ -704,7 +704,7 @@ function dayTickProc () {
 			+ (1900 + d.getYear ()) + "." + (d.getMonth () + 1) + "." + d.getDate ();
 		var size = 16;
 		psp.sysRadioPrepareForHttpGet (url, userAgentForHttpGet, size, 0);
-		// ’j‚±‚ê‚ÍŠÉ‚¢ˆ—B”r‘¼ˆ—‚Ís‚í‚È‚¢B
+		// æ³¨ï¼‰ã“ã‚Œã¯ç·©ã„å‡¦ç†ã€‚æŽ’ä»–å‡¦ç†ã¯è¡Œã‚ãªã„ã€‚
 	}
 }
 
