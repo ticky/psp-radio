@@ -10,6 +10,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/PLAYER_II/icon.png'
   },
   {
+    title: 'Back to the 80\'s',
+    url: '../players/clip_80s/index.html',
+    iconUrl: '../players/clip_80s/icon.png'
+  },
+  {
     title: 'FreeRadio 1.7',
     url: '../players/FreeRadio/index.html',
     iconUrl: '../players/FreeRadio/icon.png'
