@@ -60,6 +60,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/clip_relax/icon.png'
   },
   {
+    title: 'Soundtrack',
+    url: '../players/clip_soundtrack/index.html',
+    iconUrl: '../players/clip_soundtrack/icon.png'
+  },
+  {
     title: 'FreeRadio 1.7',
     url: '../players/FreeRadio/index.html',
     iconUrl: '../players/FreeRadio/icon.png'
