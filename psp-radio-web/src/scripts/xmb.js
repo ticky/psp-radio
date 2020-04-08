@@ -30,6 +30,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/clip_classic/icon.png'
   },
   {
+    title: 'Jazz in 246',
+    url: '../players/clip_jazz/index.html',
+    iconUrl: '../players/clip_jazz/icon.png'
+  },
+  {
     title: 'FreeRadio 1.7',
     url: '../players/FreeRadio/index.html',
     iconUrl: '../players/FreeRadio/icon.png'
