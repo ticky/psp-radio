@@ -20,6 +20,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/clip_rock/icon.png'
   },
   {
+    title: 'COUNTERCULTURE',
+    url: '../players/clip_alternative/index.html',
+    iconUrl: '../players/clip_alternative/icon.png'
+  },
+  {
     title: 'BRITISH CULTURE',
     url: '../players/clip_british/index.html',
     iconUrl: '../players/clip_british/icon.png'
