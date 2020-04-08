@@ -85,6 +85,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/os_LikeOnTheRadio/icon.png'
   },
   {
+    title: 'LATIN ON',
+    url: '../players/os_LatinOn/index.html',
+    iconUrl: '../players/os_LatinOn/icon.png'
+  },
+  {
     title: 'Hip Me, Hop You',
     url: '../players/os_HipMeHopYou/index.html',
     iconUrl: '../players/os_HipMeHopYou/icon.png'
