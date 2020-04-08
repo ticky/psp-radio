@@ -111,13 +111,13 @@ export default class PSP {
   _strOperationString: ?string;
   _masterPlayer: HTMLAudioElement;
   _subPlayer: HTMLAudioElement;
-  _httpRequest: PromiseAdapter;
+  _httpRequest: ?PromiseAdapter;
   _streamMetadataUpdatedAt: number;
   _streamMetadata: ?Element;
-  _requestBaseURL: ?string;
+  _requestBaseURL: string;
 
   constructor(baseUrl: string) {
-    this._requestBaseURL = baseUrl;
+    this._requestBaseURL = baseUrl || '';
     this._masterPlayer = new Audio();
     this._subPlayer = new Audio();
 
