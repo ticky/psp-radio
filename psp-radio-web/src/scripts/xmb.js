@@ -75,6 +75,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/clip_soundtrack/icon.png'
   },
   {
+    title: 'TO JAZZ OR NOT TO JAZZ, THAT IS THE QUESTION',
+    url: '../players/os_JazzOrNot/index.html',
+    iconUrl: '../players/os_JazzOrNot/icon.png'
+  },
+  {
     title: 'Hip Me, Hop You',
     url: '../players/os_HipMeHopYou/index.html',
     iconUrl: '../players/os_HipMeHopYou/icon.png'
