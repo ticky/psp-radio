@@ -13,11 +13,27 @@ type PSPBoolean = 0 | 1;
  */
 type CharacterCodeConversionType = 0 | 1 | 2;
 
-export class PromiseAdapter {
-  state: 'pending' | 'rejected' | 'resolved';
-  result: string;
+/**
+ * Promise wrapper, allowing for observing a fetch request's state while in-flight
+ */
+export class ObservableFetchAdapter {
   _promise: Promise<any>;
 
+  /**
+   * The state the `Promise` is currently in.
+   *
+   * This is automatically updated as the `Promise`` moves through its lifecycle.
+   */
+  state: 'pending' | 'rejected' | 'resolved';
+
+  /**
+   * The text result of the HTTP request, if any.
+   */
+  result: ?string;
+
+  /**
+   * @param callback - the `Promise` returned from the `fetch`` API method
+   */
   constructor(callback: () => Promise<any>) {
     this.state = 'pending';
 
@@ -111,7 +127,7 @@ export default class PSP {
   _strOperationString: ?string;
   _masterPlayer: HTMLAudioElement;
   _subPlayer: HTMLAudioElement;
-  _httpRequest: ?PromiseAdapter;
+  _httpRequest: ?ObservableFetchAdapter;
   _streamMetadataUpdatedAt: number;
   _streamMetadata: ?Element;
   _requestBaseURL: string;
@@ -471,7 +487,7 @@ export default class PSP {
   ): 0 | -1 {
     const headers = new Headers();
     headers.append("User-Agent", userAgentName);
-    this._httpRequest = new PromiseAdapter(() => fetch(`${this._requestBaseURL}/${url}`, { headers, mode: 'cors' }));
+    this._httpRequest = new ObservableFetchAdapter(() => fetch(`${this._requestBaseURL}/${url}`, { headers, mode: 'cors' }));
     return 0;
   }
 
@@ -501,7 +517,7 @@ export default class PSP {
    * @returns The HTTP GET processing result.
    */
   sysRadioGetHttpGetResult(): string {
-    if (this._httpRequest) {
+    if (this._httpRequest && this._httpRequest.result) {
       return this._httpRequest.result;
     }
 
