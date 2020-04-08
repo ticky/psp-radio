@@ -1,5 +1,10 @@
 const DEFAULT_MENU = [
   {
+    title: 'INTERNET RADIO PLAYER I',
+    url: '../players/PLAYER_I/index.html',
+    iconUrl: '../players/PLAYER_I/icon.png'
+  },
+  {
     title: 'FreeRadio 1.7',
     url: '../players/FreeRadio/index.html',
     iconUrl: '../players/FreeRadio/icon.png'
