@@ -65,6 +65,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/clip_soundtrack/icon.png'
   },
   {
+    title: 'Hip Me, Hop You',
+    url: '../players/os_HipMeHopYou/index.html',
+    iconUrl: '../players/os_HipMeHopYou/icon.png'
+  },
+  {
     title: 'FreeRadio 1.7',
     url: '../players/FreeRadio/index.html',
     iconUrl: '../players/FreeRadio/icon.png'
