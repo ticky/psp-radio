@@ -997,6 +997,7 @@ export default class PSP {
    * * `5`: Can the {@link sysRadioGetSystemStatus} method be used?
    */
   sysRadioCapabilityCheck(id: number): PSPBoolean {
+    console.debug(`sysRadioCapabilityCheck: radio player capability ${id} requested`);
     switch (id) {
       case 0:
         return (
@@ -1022,6 +1023,7 @@ export default class PSP {
    * * `0`: Returned when the START button has been toggled.
    */
   sysRadioGetStartButtonToggleStatus(): PSPBoolean {
+    console.debug(`sysRadioGetStartButtonToggleStatus: START button toggle state requested`);
     return 1;
   }
 
@@ -1031,6 +1033,14 @@ export default class PSP {
    * @param flag - When 1 is specified, the Internet radio player is in a state in which the backlight is always on, and when 0 is specified, this state is canceled.
    */
   sysRadioBackLightAlwaysOn(flag: PSPBoolean): 0 {
+    if (flag == 1) {
+      console.debug(`sysRadioBackLightAlwaysOn: backlight lock requested`);
+    } else if (flag == 0) {
+      console.debug(`sysRadioBackLightAlwaysOn: backlight lock cleared`);
+    } else {
+      console.debug(`sysRadioBackLightAlwaysOn: invalid state specified: ${flag}`);
+    }
+
     return 0;
   }
 
@@ -1040,6 +1050,14 @@ export default class PSP {
    * @param flag - If 1 is specified, the busy indicator appears, and if 0 is specified, it is hidden.
    */
   sysRadioBusyIndicator(flag: PSPBoolean): 0 {
+    if (flag == 1) {
+      console.debug(`sysRadioBusyIndicator: busy indicator requested`);
+    } else if (flag == 0) {
+      console.debug(`sysRadioBusyIndicator: busy indicator cleared`);
+    } else {
+      console.debug(`sysRadioBusyIndicator: invalid state specified: ${flag}`);
+    }
+
     return 0;
   }
 
@@ -1051,6 +1069,7 @@ export default class PSP {
    * * `-1`: Error
    */
   sysRadioCaptureScreenShot(): 0 | -1 {
+    console.debug(`sysRadioCaptureScreenShot: screenshot requested`);
     return -1;
   }
 
@@ -1058,6 +1077,7 @@ export default class PSP {
    * Set PSP™ system sleep mode
    */
   sysRadioSleep(): 0 {
+    console.debug(`sysRadioSleep: sleep mode requested`);
     return 0;
   }
 
@@ -1070,9 +1090,11 @@ export default class PSP {
   sysRadioGetSystemStatus(id: number): PSPBoolean {
     switch (id) {
       case 0:
+        console.debug(`sysRadioGetSystemStatus(1): previous sleep mode state queried`);
         return 1;
 
       default:
+        console.debug(`sysRadioGetSystemStatus(${id}): unknown system status queried`);
         return 0;
     }
   }
