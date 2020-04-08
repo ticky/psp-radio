@@ -100,6 +100,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/os_CoffeeOrTea/icon.png'
   },
   {
+    title: 'a way to relax',
+    url: '../players/os_AWayToRelax/index.html',
+    iconUrl: '../players/os_AWayToRelax/icon.png'
+  },
+  {
     title: 'FreeRadio 1.7',
     url: '../players/FreeRadio/index.html',
     iconUrl: '../players/FreeRadio/icon.png'

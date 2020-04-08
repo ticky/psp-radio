@@ -1,0 +1,26 @@
+#metaInfo {
+    position: absolute;
+    margin: 1;
+    left: 6px; top: 0px;
+    width: 467px; height: 16px;
+    color: #fdfdfd;
+    text-align: left;
+    font-weight: regular;
+    line-height: 1.5;
+    font-family: Helvetica;
+    font-style: normal;
+    overflow: hidden;
+}
+#stationInfo {
+    position: absolute;
+    margin: 1;
+    left: 6px; top: 254px;
+    width: 318px; height: 16px;
+    color: #fdfdfd;
+    text-align: left;
+    font-weight: regular;
+    line-height: 1.5;
+    font-family: Helvetica;
+    font-style: normal;
+    overflow: hidden;
+}
