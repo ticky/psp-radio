@@ -20,11 +20,11 @@ export class ObservableFetchAdapter {
   _promise: Promise<any>;
 
   /**
-   * The state the `Promise` is currently in.
+   * The state the `Promise` is currently in. These state names are based on the Promise API.
    *
-   * This is automatically updated as the `Promise`` moves through its lifecycle.
+   * This is automatically updated as the `Promise` moves through its lifecycle.
    */
-  state: 'pending' | 'rejected' | 'resolved';
+  state: 'pending' | 'fulfilled' | 'rejected';
 
   /**
    * The text result of the HTTP request, if any.
@@ -56,7 +56,7 @@ export class ObservableFetchAdapter {
       response.text().then(
         (text) => {
           this.result = text;
-          this.state = 'resolved';
+          this.state = 'fulfilled';
         },
         this._rejected.bind(this)
       );
@@ -515,7 +515,7 @@ export default class PSP {
   sysRadioGetHttpGetStatus(): 0 | 1 | -1 {
     if (this._httpRequest) {
       return {
-        'resolved': 0,
+        'fulfilled': 0,
         'pending': 1,
         'rejected': -1
       }[this._httpRequest.state];
