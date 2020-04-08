@@ -135,7 +135,7 @@ export class ObservableFetchAdapter {
  */
 export default class PSP {
   _strOperationString: ?string;
-  _masterPlayer: HTMLAudioElement;
+  _mainPlayer: HTMLAudioElement;
   _subPlayer: HTMLAudioElement;
   _httpRequest: ?ObservableFetchAdapter;
   _streamMetadataUpdatedAt: number;
@@ -147,11 +147,11 @@ export default class PSP {
    */
   constructor(baseUrl: string) {
     this._requestBaseURL = baseUrl || '';
-    this._masterPlayer = new Audio();
+    this._mainPlayer = new Audio();
     this._subPlayer = new Audio();
 
     document.addEventListener('DOMContentLoaded', () => {
-      document.body && document.body.appendChild(this._masterPlayer);
+      document.body && document.body.appendChild(this._mainPlayer);
       document.body && document.body.appendChild(this._subPlayer);
     });
   }
@@ -172,9 +172,9 @@ export default class PSP {
     this._streamMetadataUpdatedAt = Date.now();
 
     // If the player is pointed at a downloaded playlist file
-    if (this._masterPlayer.src && this._masterPlayer.src.slice(0, 5) === 'data:') {
+    if (this._mainPlayer.src && this._mainPlayer.src.slice(0, 5) === 'data:') {
       // Pull the playlist data back out of the data URI
-      const [ type, playlistBase64 ] = this._masterPlayer.src.slice(5).split(';base64,');
+      const [ type, playlistBase64 ] = this._mainPlayer.src.slice(5).split(';base64,');
       const playlistLines = atob(playlistBase64).trim().split(/\r?\n/g).filter((line) => line.length > 0);
 
       let targetUrl = null;
@@ -234,14 +234,14 @@ export default class PSP {
 
                 // Playlist format detection
                 if (playlistLines[0] === '[playlist]') {
-                  this._masterPlayer.src = `data:audio/x-scpls;base64,${btoa(text)}`;
+                  this._mainPlayer.src = `data:audio/x-scpls;base64,${btoa(text)}`;
                 } else if (playlistLines[0] === '#EXTM3U') {
-                  this._masterPlayer.src = `data:audio/x-mpegurl;base64,${btoa(text)}`;
+                  this._mainPlayer.src = `data:audio/x-mpegurl;base64,${btoa(text)}`;
                 } else {
-                  this._masterPlayer.src = url;
+                  this._mainPlayer.src = url;
                 }
 
-                return this._masterPlayer.play().then(
+                return this._mainPlayer.play().then(
                   (played) => {
                     console.log("Playback started OK!", played);
 
@@ -261,8 +261,8 @@ export default class PSP {
       })
       .catch(
         () => {
-          this._masterPlayer.src = url;
-          return this._masterPlayer.play().then(
+          this._mainPlayer.src = url;
+          return this._mainPlayer.play().then(
             (played) => {
               console.log("Playback started OK!", played);
 
@@ -315,7 +315,7 @@ export default class PSP {
    * 
    * @param [mode] - Identifier of audio data stream to be stopped:
    * * `0`: Main audio data stream
-   * * `1`: Sub audio data stream
+   * * `1`: Sub audio data stream; the "new" stream while buffering to switch stations
    */
   sysRadioStop(mode?: 0 | 1): 0 {
     switch (mode) {
@@ -326,8 +326,8 @@ export default class PSP {
     
       case 0:
       default:
-        this._masterPlayer.pause();
-        this._masterPlayer.src = '';
+        this._mainPlayer.pause();
+        this._mainPlayer.src = '';
         break;
     }
 
@@ -558,16 +558,16 @@ export default class PSP {
    * * `-1`: Some kind of error occurred.
    */
   sysRadioGetPlayerStatus(): 0 | 1 | 2 | 3 | 4 | -1 {
-    if (!this._masterPlayer || this._masterPlayer.error !== null) {
+    if (!this._mainPlayer || this._mainPlayer.error !== null) {
       return -1;
     }
 
-    if (this._masterPlayer.paused) {
+    if (this._mainPlayer.paused) {
       return 0;
     }
 
     // Roughly map the `readyState` to the PSP's playback states
-    switch (this._masterPlayer.readyState) {
+    switch (this._mainPlayer.readyState) {
       case 1: // Enough of the media resource has been retrieved that the metadata attributes are initialized. Seeking will no longer raise an exception.
         return 2;
 
