@@ -844,7 +844,7 @@ export default class PSP {
    * @returns The converted string.
    */
   sysRadioCharacterEntityConvert(str: string): string {
-    return str;
+    return require("entities").decodeHTML(str);
   }
 
   /**
