@@ -50,6 +50,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/clip_anime/icon.png'
   },
   {
+    title: 'GAME START',
+    url: '../players/clip_game/index.html',
+    iconUrl: '../players/clip_game/icon.png'
+  },
+  {
     title: 'FreeRadio 1.7',
     url: '../players/FreeRadio/index.html',
     iconUrl: '../players/FreeRadio/icon.png'
