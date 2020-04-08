@@ -95,6 +95,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/os_HipMeHopYou/icon.png'
   },
   {
+    title: 'Coffee Or Tea',
+    url: '../players/os_CoffeeOrTea/index.html',
+    iconUrl: '../players/os_CoffeeOrTea/icon.png'
+  },
+  {
     title: 'FreeRadio 1.7',
     url: '../players/FreeRadio/index.html',
     iconUrl: '../players/FreeRadio/icon.png'
