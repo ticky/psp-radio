@@ -50,6 +50,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/clip_jpop/icon.png'
   },
   {
+    title: 'K-POP',
+    url: '../players/clip_kpop2/index.html',
+    iconUrl: '../players/clip_kpop2/icon.png'
+  },
+  {
     title: 'ANIMECAN',
     url: '../players/clip_anime/index.html',
     iconUrl: '../players/clip_anime/icon.png'
