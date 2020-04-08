@@ -54,7 +54,59 @@ export class PromiseAdapter {
   }
 }
 
-/** Class representing the PSP Internet radio player API */
+/**
+ * Class representing the PSP Internet radio player API
+ *
+ * **Audio Sources:**
+ * Media element source: https://developer.mozilla.org/en-US/docs/Web/API/MediaElementAudioSourceNode
+ * Sine oscillator: https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode
+ * White noise: https://noisehack.com/generate-noise-web-audio-api/#demo
+ *
+ * **Gain, Effects & Analysis:**
+ * Gain node: https://developer.mozilla.org/en-US/docs/Web/API/GainNode
+ * Analysis node: https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode
+ * Filter node: https://developer.mozilla.org/en-US/docs/Web/API/BiquadFilterNode
+ *
+ * ```
+ * ┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+ * │                                                 PSP Radio Player Audio Pipeline                                                 │
+ * │┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┬ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ │
+ * │         Audio Sources                                 Gain, Effects & Analysis                        │      Audio Sinks       ││
+ * ││                             │                                                                        │                         │
+ * │      ┏━━━━━━━━━━━━━━━━┓          ┌────────────────────────┐   ┌──────────────────────────────────┐    │                        ││
+ * ││     ┃ Audio stream A ┃────┐ │   │      Cross-fader       │   │             Effects:             │    │                         │
+ * │      ┗━━━━━━━━━━━━━━━━┛    ├────▶│ (Automatically applied │─┐ │    sysRadioSetAudioShiftWidth    │    │                        ││
+ * ││     ┏━━━━━━━━━━━━━━━━┓    │ │   │ when changing streams) │ └▶│   sysRadioSetAudioCutOffWidth    │──┐ │                         │
+ * │      ┃ Audio stream B ┃────┘     └────────────────────────┘   │ sysRadioSetAudioPitchShiftWidth  │  │ │                        ││
+ * ││     ┗━━━━━━━━━━━━━━━━┛      │                                └──────────────────────────────────┘  │ │                         │
+ * │                                ┌────────────────────────────────────────────────────────────────────┘ │                        ││
+ * ││                             │ │                             ┌───────────────────────────────────┐    │                         │
+ * │                                │  ┌──────────────────────┐   │      Analysis: Audio levels       │    │                        ││
+ * ││                             │ │  │        Gain:         │   │  sysRadioGetRightAudioPeakLevel   │    │                         │
+ * │                                └─▶│ sysRadioSetSubVolume │──▶│ sysRadioGetRightAudioAverageLevel │──┐ │                        ││
+ * ││                             │    └──────────────────────┘   │   sysRadioGetLeftAudioPeakLevel   │  │ │                         │
+ * │                                                              │ sysRadioGetLeftAudioAverageLevel  │  │ │                        ││
+ * ││                             │                               └───────────────────────────────────┘  │ │                         │
+ * │        ┏━━━━━━━━━━━━┓             ┌─────────────────────────────────────────────────┐               │ │                        ││
+ * ││       ┃ Sine wave  ┃        │    │                Gain & Frequency:                │               │ │                         │
+ * │        ┃ oscillator ┃────────────▶│ sysRadioSetSineWaveOscillatorFrequencyAndVolume │─┐             │ │                        ││
+ * ││       ┗━━━━━━━━━━━━┛        │    └─────────────────────────────────────────────────┘ │             │ │                         │
+ * │       ┏━━━━━━━━━━━━━━┓            ┌───────────────────────────────────────┐           ├─────────────┘ │                        ││
+ * ││      ┃ White noise  ┃       │    │                 Gain:                 │           │               │                         │
+ * │       ┃  oscillator  ┃───────────▶│ sysRadioSetWhiteNoiseOscillatorVolume │───────────┤               │                        ││
+ * ││      ┗━━━━━━━━━━━━━━┛       │    └───────────────────────────────────────┘           ▼               │                         │
+ * │                                                                          ┌─────────────────────────┐  │                        ││
+ * ││                             │                                           │          Gain:          │  │                         │
+ * │                                                                          │ sysRadioSetMasterVolume │  │                        ││
+ * ││ ┏━━━━━━━━━━━━━━━━━━━━━━━━━┓ │                                           └─────────────────────────┘  │  ┏━━━━━━━━━━━━━━━━━━┓   │
+ * │  ┃      Sound effect       ┃                                                          │               │  ┃                  ┃  ││
+ * ││ ┃ sysRadioPlayEffectSound ┃─┼────────────────────────────────────────────────────────┴───────────────┼─▶┃   Audio output   ┃   │
+ * │  ┗━━━━━━━━━━━━━━━━━━━━━━━━━┛                                                                          │  ┃                  ┃  ││
+ * ││                             │                                                                        │  ┗━━━━━━━━━━━━━━━━━━┛   │
+ * │ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘│
+ * └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ * ````
+ */
 export default class PSP {
   _strOperationString: ?string;
   _masterPlayer: HTMLAudioElement;
@@ -390,6 +442,8 @@ export default class PSP {
 
   /**
    * Play sound effect
+   * 
+   * This extended method plays a clicking sound (like a shutter sound).
    */
   sysRadioPlayEffectSound(): 0 {
     return 0;
