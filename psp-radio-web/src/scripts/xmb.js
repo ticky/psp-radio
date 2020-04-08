@@ -105,6 +105,11 @@ const DEFAULT_MENU = [
     iconUrl: '../players/os_AWayToRelax/icon.png'
   },
   {
+    title: 'PUNKACOFUNKA',
+    url: '../players/os_PUNKACOFUNKA/index.html',
+    iconUrl: '../players/os_PUNKACOFUNKA/icon.png'
+  },
+  {
     title: 'FreeRadio 1.7',
     url: '../players/FreeRadio/index.html',
     iconUrl: '../players/FreeRadio/icon.png'
