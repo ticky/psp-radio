@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<title>FreeRadio</title>
+<script type="text/javascript" src="./js/dynamic.js"></script>
+</head>
+<script>
+document.writeln('<frameset rows="29,*">\n<frame noresize="noresize" src="./nav.html"/>\n');
+var url = './shoutcast.html';
+if(args['page']) url = args['page'];
+document.writeln('<frame id="browser" name="browser" src="'+url+'"/>\n</frameset>\n');
+</script>
+</html>

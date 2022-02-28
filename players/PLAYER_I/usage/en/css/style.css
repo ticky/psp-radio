@@ -1,0 +1,81 @@
+body {
+	margin: 0px;
+	padding: 0;
+	background-color: #fcf6ec;
+	color: #333333;
+	background-image: url(../img/bg_pc.gif);
+	background-repeat: repeat-y;
+	line-height: 1.2em;
+	font-family: "Arial";
+	background-position: center;
+	text-align: center;
+}
+a {
+	color: #7c3613;
+	text-decoration: none;
+}
+a:hover {
+	background-color: #7c3613;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+h1, h2, h5, h6 {
+	font-weight: bold;
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+}
+h3 {
+	margin-top: 1em;
+	text-decoration: underline;
+}
+ {
+	padding-top: 1px;
+	font-weight: bold;
+}
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+	line-height: 1.2em;
+}
+.rsscomment {
+	font-size: 0.8em;
+	line-height: 1.1em;
+	padding-top: 6px;
+	text-align: left;
+	margin-right: auto;
+	margin-left: auto;
+	display: block;
+	width: 220px;
+}
+
+
+.hint {
+	margin-top: 1em;
+	color: #CC3333;
+}
+
+.hint strong {
+	font-weight: bold;
+}
+.imp {
+	font-weight: bold;
+}
+
+.no {
+	background: #E7ECFA;
+	margin: 1em 0px;
+	font-weight: bold;
+	display: block;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
+}
+.caption {
+	padding-left: 6px;
+}
+ul,ol {
+	margin-top: 0.5em;
+	padding-left: 18px;
+}
+li {
+	line-height: 1.2em;
+}

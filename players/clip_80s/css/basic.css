@@ -1,0 +1,6 @@
+body {
+    margin: 0;
+    background-repeat: no-repeat;
+}
+#face { position: absolute; left: 0px; top: 0px; }
+#clip { position: absolute; left: 325px; top: 0px; }

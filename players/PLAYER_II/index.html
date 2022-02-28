@@ -1,0 +1,724 @@
+<html>
+<head>
+<!-- START CUSTOM CODE -->
+<link rel="stylesheet" href="https://use.typekit.net/ibi4odc.css">
+<style>body, body * { font-family: eurostile, sans-serif !important; } * { image-rendering: crisp-edges; }</style>
+<script language="JavaScript" src="../../scripts/psp-radio-shim.js"></script>
+<!-- END CUSTOM CODE -->
+<link href="css/basic.css" rel="stylesheet" type="text/css" />
+<link href="css/coldspot.css" rel="stylesheet" type="text/css" />
+<link href="css/magicwindow.css" rel="stylesheet" type="text/css" />
+<link href="css/pushbutton.css" rel="stylesheet" type="text/css" />
+<link href="css/gauge.css" rel="stylesheet" type="text/css" />
+<link href="css/metainfo.css" rel="stylesheet" type="text/css" />
+<link href="css/genre_button.css" rel="stylesheet" type="text/css" />
+<link href="css/station_point.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>INTERNET RADIO PLAYER II</title>
+</head>
+<body bgcolor="#000000" link="#eeeeee" vlink="#eeeeee" alink="#a0d0ff">
+<script language="JavaScript" src="./js/radioplayer.js">
+</script>
+
+<IMG id="leftMWindow" name="leftMWindow"
+     SRC="images/magic_window_c_0_4.png" width="40" height="40" /> </a>
+<IMG id="centerMWindow" name="centerMWindow"
+     SRC="images/magic_window_c_1_4.png" width="40" height="40" /> </a>
+<IMG id="rightMWindow" name="rightMWindow"
+     SRC="images/magic_window_c_2_4.png" width="40" height="40" /> </a>
+<a href="JavaScript:">
+<IMG id="prevButton"
+     onMouseOver='b_mouseOver(-1);'
+     onMouseOut='b_mouseOut(-1);'
+     onMouseDown='b_mouseDown(-1);'
+     onMouseUp='b_mouseUp(-1);'
+     border="0" hspace="0" vspace="0"
+     SRC="images/leftarrow_small_button.png" width="29" height="30" /> </a>
+<a href="JavaScript:">
+<IMG id="playButton"
+     onMouseOver='b_mouseOver(0);'
+     onMouseOut='b_mouseOut(0);'
+     onMouseDown='b_mouseDown(0);'
+     onMouseUp='b_mouseUp(0);'
+     border="0" hspace="0" vspace="0"
+     SRC="images/reconnect_small_button.png" width="86" height="30" /> </a>
+<a href="JavaScript:">
+<IMG id="nextButton"
+     onMouseOver='b_mouseOver(1);'
+     onMouseOut='b_mouseOut(1);'
+     onMouseDown='b_mouseDown(1);'
+     onMouseUp='b_mouseUp(1);'
+     border="0" hspace="0" vspace="0"
+     SRC="images/rightarrow_small_button.png" width="29" height="30" /> </a>
+
+<a href="JavaScript:">
+<IMG id="sleepSw" name="sleepSw"
+     onMouseOver='sw_sleep(0);'
+     onMouseOut='sw_sleep(1);'
+     onMouseDown='sw_sleep(2);'
+     SRC="images/sw_sleep_small_off.png" width="29" height="30" /> </a>
+<span id="sleepCountDown"> </span>
+<a href="JavaScript:">
+<IMG id="shiftTglSw" name="shiftTglSw"
+     onMouseOver='sw_shift(0);'
+     onMouseOut='sw_shift(1);'
+     onMouseDown='sw_shift(2);'
+     SRC="images/sw_shift_small_off.png" width="29" height="30" /> </a>
+<a href="JavaScript:">
+<IMG id="sinTglSw" name="sinTglSw"
+     onMouseOver='sw_sin(0);'
+     onMouseOut='sw_sin(1);'
+     onMouseDown='sw_sin(2);'
+     SRC="images/sw_sin_small_off.png" width="29" height="30" /> </a>
+<a href="JavaScript:">
+<IMG id="cwTglSw" name="cwTglSw"
+     onMouseOver='sw_cw(0);'
+     onMouseOut='sw_cw(1);'
+     onMouseDown='sw_cw(2);'
+     SRC="images/sw_cw_small_off.png" width="29" height="30" /> </a>
+<a href="JavaScript:">
+<IMG id="noiseTglSw" name="noiseTglSw"
+     onMouseOver='sw_noise(0);'
+     onMouseOut='sw_noise(1);'
+     onMouseDown='sw_noise(2);'
+     SRC="images/sw_noise_small_off.png" width="29" height="30" /> </a>
+<a href="JavaScript:">
+<IMG id="helpSw" name="helpSw"
+     onMouseOver='sw_help(0);'
+     onMouseOut='sw_help(1);'
+     onMouseDown='sw_help(2);'
+     SRC="images/sw_help_small_off.png" width="29" height="30" /> </a>
+
+<IMG id="sleepTimerIndicator" name="sleepTimerIndicator"
+     SRC="images/indicator_c_off.png" width="7" height="7" />
+<IMG id="shiftSwIndicator" name="shiftSwIndicator"
+     SRC="images/indicator_c_off.gif" width="7" height="7" />
+<IMG id="sinSwIndicator" name="sinSwIndicator"
+     SRC="images/indicator_c_off.gif" width="7" height="7" />
+<IMG id="cwSwIndicator" name="cwSwIndicator"
+     SRC="images/indicator_c_off.gif" width="7" height="7" />
+<IMG id="noiseSwIndicator" name="noiseSwIndicator"
+     SRC="images/indicator_c_off.gif" width="7" height="7" />
+
+<a href="JavaScript:" onMouseDown='t_mouseDown(0);'>
+<IMG id="stationP0" name="stationP0" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(1);'>
+<IMG id="stationP1" name="stationP1" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(2);'>
+<IMG id="stationP2" name="stationP2" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(3);'>
+<IMG id="stationP3" name="stationP3" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(4);'>
+<IMG id="stationP4" name="stationP4" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(5);'>
+<IMG id="stationP5" name="stationP5" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(6);'>
+<IMG id="stationP6" name="stationP6" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(7);'>
+<IMG id="stationP7" name="stationP7" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(8);'>
+<IMG id="stationP8" name="stationP8" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(9);'>
+<IMG id="stationP9" name="stationP9" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(10);'>
+<IMG id="stationP10" name="stationP10" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(11);'>
+<IMG id="stationP11" name="stationP11" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(12);'>
+<IMG id="stationP12" name="stationP12" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(13);'>
+<IMG id="stationP13" name="stationP13" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(14);'>
+<IMG id="stationP14" name="stationP14" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(15);'>
+<IMG id="stationP15" name="stationP15" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(16);'>
+<IMG id="stationP16" name="stationP16" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(17);'>
+<IMG id="stationP17" name="stationP17" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(18);'>
+<IMG id="stationP18" name="stationP18" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(19);'>
+<IMG id="stationP19" name="stationP19" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(20);'>
+<IMG id="stationP20" name="stationP20" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(21);'>
+<IMG id="stationP21" name="stationP21" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(22);'>
+<IMG id="stationP22" name="stationP22" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(23);'>
+<IMG id="stationP23" name="stationP23" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(24);'>
+<IMG id="stationP24" name="stationP24" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(25);'>
+<IMG id="stationP25" name="stationP25" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(26);'>
+<IMG id="stationP26" name="stationP26" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(27);'>
+<IMG id="stationP27" name="stationP27" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(28);'>
+<IMG id="stationP28" name="stationP28" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+<a href="JavaScript:" onMouseDown='t_mouseDown(29);'>
+<IMG id="stationP29" name="stationP29" SRC="images/stationMarker_c_off.gif" width="7" height="10" /></a>
+
+<IMG id="gaugeLine" name="gaugeLine"
+     border="0" hspace="0" vspace="0"
+     SRC="images/gauge1.gif" width="480" height="25" />
+<IMG id="gaugeHand" name="gaugeHand"
+     border="0" hspace="0" vspace="0"
+     SRC="images/hand3.png" width="26" height="60" />
+
+<table id="genreButtonPanel" width="430px" height="190px"
+       border="0" cellspacing="0" cellpadding="0">
+<tr>
+  <td width="16%">
+    <a id="gb_0_0" href="JavaScript:"
+       onMouseOver='g_mouseOver(0, 0);'
+       onMouseOut='g_mouseOut(0, 0);'
+       onMouseDown='g_mouseDown(0, 0);'
+       onMouseUp='g_mouseUp(0, 0);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td width="16%">
+    <a id="gb_0_1" href="JavaScript:"
+       onMouseOver='g_mouseOver(0, 1);'
+       onMouseOut='g_mouseOut(0, 1);'
+       onMouseDown='g_mouseDown(0, 1);'
+       onMouseUp='g_mouseUp(0, 1);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td width="16%">
+    <a id="gb_0_2" href="JavaScript:"
+       onMouseOver='g_mouseOver(0, 2);'
+       onMouseOut='g_mouseOut(0, 2);'
+       onMouseDown='g_mouseDown(0, 2);'
+       onMouseUp='g_mouseUp(0, 2);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td width="16%">
+    <a id="gb_0_3" href="JavaScript:"
+       onMouseOver='g_mouseOver(0, 3);'
+       onMouseOut='g_mouseOut(0, 3);'
+       onMouseDown='g_mouseDown(0, 3);'
+       onMouseUp='g_mouseUp(0, 3);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td width="16%">
+    <a id="gb_0_4" href="JavaScript:"
+       onMouseOver='g_mouseOver(0, 4);'
+       onMouseOut='g_mouseOut(0, 4);'
+       onMouseDown='g_mouseDown(0, 4);'
+       onMouseUp='g_mouseUp(0, 4);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+</tr>
+<tr>
+  <td width="16%">
+    <a id="gb_1_0" href="JavaScript:"
+       onMouseOver='g_mouseOver(1, 0);'
+       onMouseOut='g_mouseOut(1, 0);'
+       onMouseDown='g_mouseDown(1, 0);'
+       onMouseUp='g_mouseUp(1, 0);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_1_1" href="JavaScript:"
+       onMouseOver='g_mouseOver(1, 1);'
+       onMouseOut='g_mouseOut(1, 1);'
+       onMouseDown='g_mouseDown(1, 1);'
+       onMouseUp='g_mouseUp(1, 1);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_1_2" href="JavaScript:"
+       onMouseOver='g_mouseOver(1, 2);'
+       onMouseOut='g_mouseOut(1, 2);'
+       onMouseDown='g_mouseDown(1, 2);'
+       onMouseUp='g_mouseUp(1, 2);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_1_3" href="JavaScript:"
+       onMouseOver='g_mouseOver(1, 3);'
+       onMouseOut='g_mouseOut(1, 3);'
+       onMouseDown='g_mouseDown(1, 3);'
+       onMouseUp='g_mouseUp(1, 3);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_1_4" href="JavaScript:"
+       onMouseOver='g_mouseOver(1, 4);'
+       onMouseOut='g_mouseOut(1, 4);'
+       onMouseDown='g_mouseDown(1, 4);'
+       onMouseUp='g_mouseUp(1, 4);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a id="gb_2_0" href="JavaScript:"
+       onMouseOver='g_mouseOver(2, 0);'
+       onMouseOut='g_mouseOut(2, 0);'
+       onMouseDown='g_mouseDown(2, 0);'
+       onMouseUp='g_mouseUp(2, 0);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_2_1" href="JavaScript:"
+       onMouseOver='g_mouseOver(2, 1);'
+       onMouseOut='g_mouseOut(2, 1);'
+       onMouseDown='g_mouseDown(2, 1);'
+       onMouseUp='g_mouseUp(2, 1);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_2_2" href="JavaScript:"
+       onMouseOver='g_mouseOver(2, 2);'
+       onMouseOut='g_mouseOut(2, 2);'
+       onMouseDown='g_mouseDown(2, 2);'
+       onMouseUp='g_mouseUp(2, 2);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_2_3" href="JavaScript:"
+       onMouseOver='g_mouseOver(2, 3);'
+       onMouseOut='g_mouseOut(2, 3);'
+       onMouseDown='g_mouseDown(2, 3);'
+       onMouseUp='g_mouseUp(2, 3);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_2_4" href="JavaScript:"
+       onMouseOver='g_mouseOver(2, 4);'
+       onMouseOut='g_mouseOut(2, 4);'
+       onMouseDown='g_mouseDown(2, 4);'
+       onMouseUp='g_mouseUp(2, 4);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a id="gb_3_0" href="JavaScript:"
+       onMouseOver='g_mouseOver(3, 0);'
+       onMouseOut='g_mouseOut(3, 0);'
+       onMouseDown='g_mouseDown(3, 0);'
+       onMouseUp='g_mouseUp(3, 0);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_3_1" href="JavaScript:"
+       onMouseOver='g_mouseOver(3, 1);'
+       onMouseOut='g_mouseOut(3, 1);'
+       onMouseDown='g_mouseDown(3, 1);'
+       onMouseUp='g_mouseUp(3, 1);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_3_2" href="JavaScript:"
+       onMouseOver='g_mouseOver(3, 2);'
+       onMouseOut='g_mouseOut(3, 2);'
+       onMouseDown='g_mouseDown(3, 2);'
+       onMouseUp='g_mouseUp(3, 2);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_3_3" href="JavaScript:"
+       onMouseOver='g_mouseOver(3, 3);'
+       onMouseOut='g_mouseOut(3, 3);'
+       onMouseDown='g_mouseDown(3, 3);'
+       onMouseUp='g_mouseUp(3, 3);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_3_4" href="JavaScript:"
+       onMouseOver='g_mouseOver(3, 4);'
+       onMouseOut='g_mouseOut(3, 4);'
+       onMouseDown='g_mouseDown(3, 4);'
+       onMouseUp='g_mouseUp(3, 4);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a id="gb_4_0" href="JavaScript:"
+       onMouseOver='g_mouseOver(4, 0);'
+       onMouseOut='g_mouseOut(4, 0);'
+       onMouseDown='g_mouseDown(4, 0);'
+       onMouseUp='g_mouseUp(4, 0);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_4_1" href="JavaScript:"
+       onMouseOver='g_mouseOver(4, 1);'
+       onMouseOut='g_mouseOut(4, 1);'
+       onMouseDown='g_mouseDown(4, 1);'
+       onMouseUp='g_mouseUp(4, 1);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_4_2" href="JavaScript:"
+       onMouseOver='g_mouseOver(4, 2);'
+       onMouseOut='g_mouseOut(4, 2);'
+       onMouseDown='g_mouseDown(4, 2);'
+       onMouseUp='g_mouseUp(4, 2);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_4_3" href="JavaScript:"
+       onMouseOver='g_mouseOver(4, 3);'
+       onMouseOut='g_mouseOut(4, 3);'
+       onMouseDown='g_mouseDown(4, 3);'
+       onMouseUp='g_mouseUp(4, 3);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_4_4" href="JavaScript:"
+       onMouseOver='g_mouseOver(4, 4);'
+       onMouseOut='g_mouseOut(4, 4);'
+       onMouseDown='g_mouseDown(4, 4);'
+       onMouseUp='g_mouseUp(4, 4);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a id="gb_5_0" href="JavaScript:"
+       onMouseOver='g_mouseOver(5, 0);'
+       onMouseOut='g_mouseOut(5, 0);'
+       onMouseDown='g_mouseDown(5, 0);'
+       onMouseUp='g_mouseUp(5, 0);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_5_1" href="JavaScript:"
+       onMouseOver='g_mouseOver(5, 1);'
+       onMouseOut='g_mouseOut(5, 1);'
+       onMouseDown='g_mouseDown(5, 1);'
+       onMouseUp='g_mouseUp(5, 1);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_5_2" href="JavaScript:"
+       onMouseOver='g_mouseOver(5, 2);'
+       onMouseOut='g_mouseOut(5, 2);'
+       onMouseDown='g_mouseDown(5, 2);'
+       onMouseUp='g_mouseUp(5, 2);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_5_3" href="JavaScript:"
+       onMouseOver='g_mouseOver(5, 3);'
+       onMouseOut='g_mouseOut(5, 3);'
+       onMouseDown='g_mouseDown(5, 3);'
+       onMouseUp='g_mouseUp(5, 3);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_5_4" href="JavaScript:"
+       onMouseOver='g_mouseOver(5, 4);'
+       onMouseOut='g_mouseOut(5, 4);'
+       onMouseDown='g_mouseDown(5, 4);'
+       onMouseUp='g_mouseUp(5, 4);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a id="gb_6_0" href="JavaScript:"
+       onMouseOver='g_mouseOver(6, 0);'
+       onMouseOut='g_mouseOut(6, 0);'
+       onMouseDown='g_mouseDown(6, 0);'
+       onMouseUp='g_mouseUp(6, 0);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_6_1" href="JavaScript:"
+       onMouseOver='g_mouseOver(6, 1);'
+       onMouseOut='g_mouseOut(6, 1);'
+       onMouseDown='g_mouseDown(6, 1);'
+       onMouseUp='g_mouseUp(6, 1);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_6_2" href="JavaScript:"
+       onMouseOver='g_mouseOver(6, 2);'
+       onMouseOut='g_mouseOut(6, 2);'
+       onMouseDown='g_mouseDown(6, 2);'
+       onMouseUp='g_mouseUp(6, 2);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_6_3" href="JavaScript:"
+       onMouseOver='g_mouseOver(6, 3);'
+       onMouseOut='g_mouseOut(6, 3);'
+       onMouseDown='g_mouseDown(6, 3);'
+       onMouseUp='g_mouseUp(6, 3);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_6_4" href="JavaScript:"
+       onMouseOver='g_mouseOver(6, 4);'
+       onMouseOut='g_mouseOut(6, 4);'
+       onMouseDown='g_mouseDown(6, 4);'
+       onMouseUp='g_mouseUp(6, 4);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a id="gb_7_0" href="JavaScript:"
+       onMouseOver='g_mouseOver(7, 0);'
+       onMouseOut='g_mouseOut(7, 0);'
+       onMouseDown='g_mouseDown(7, 0);'
+       onMouseUp='g_mouseUp(7, 0);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_7_1" href="JavaScript:"
+       onMouseOver='g_mouseOver(7, 1);'
+       onMouseOut='g_mouseOut(7, 1);'
+       onMouseDown='g_mouseDown(7, 1);'
+       onMouseUp='g_mouseUp(7, 1);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_7_2" href="JavaScript:"
+       onMouseOver='g_mouseOver(7, 2);'
+       onMouseOut='g_mouseOut(7, 2);'
+       onMouseDown='g_mouseDown(7, 2);'
+       onMouseUp='g_mouseUp(7, 2);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_7_3" href="JavaScript:"
+       onMouseOver='g_mouseOver(7, 3);'
+       onMouseOut='g_mouseOut(7, 3);'
+       onMouseDown='g_mouseDown(7, 3);'
+       onMouseUp='g_mouseUp(7, 3);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_7_4" href="JavaScript:"
+       onMouseOver='g_mouseOver(7, 4);'
+       onMouseOut='g_mouseOut(7, 4);'
+       onMouseDown='g_mouseDown(7, 4);'
+       onMouseUp='g_mouseUp(7, 4);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a id="gb_8_0" href="JavaScript:"
+       onMouseOver='g_mouseOver(8, 0);'
+       onMouseOut='g_mouseOut(8, 0);'
+       onMouseDown='g_mouseDown(8, 0);'
+       onMouseUp='g_mouseUp(8, 0);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_8_1" href="JavaScript:"
+       onMouseOver='g_mouseOver(8, 1);'
+       onMouseOut='g_mouseOut(8, 1);'
+       onMouseDown='g_mouseDown(8, 1);'
+       onMouseUp='g_mouseUp(8, 1);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_8_2" href="JavaScript:"
+       onMouseOver='g_mouseOver(8, 2);'
+       onMouseOut='g_mouseOut(8, 2);'
+       onMouseDown='g_mouseDown(8, 2);'
+       onMouseUp='g_mouseUp(8, 2);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_8_3" href="JavaScript:"
+       onMouseOver='g_mouseOver(8, 3);'
+       onMouseOut='g_mouseOut(8, 3);'
+       onMouseDown='g_mouseDown(8, 3);'
+       onMouseUp='g_mouseUp(8, 3);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_8_4" href="JavaScript:"
+       onMouseOver='g_mouseOver(8, 4);'
+       onMouseOut='g_mouseOut(8, 4);'
+       onMouseDown='g_mouseDown(8, 4);'
+       onMouseUp='g_mouseUp(8, 4);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+</tr>
+<tr>
+  <td>
+    <a id="gb_9_0" href="JavaScript:"
+       onMouseOver='g_mouseOver(9, 0);'
+       onMouseOut='g_mouseOut(9, 0);'
+       onMouseDown='g_mouseDown(9, 0);'
+       onMouseUp='g_mouseUp(9, 0);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_9_1" href="JavaScript:"
+       onMouseOver='g_mouseOver(9, 1);'
+       onMouseOut='g_mouseOut(9, 1);'
+       onMouseDown='g_mouseDown(9, 1);'
+       onMouseUp='g_mouseUp(9, 1);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_9_2" href="JavaScript:"
+       onMouseOver='g_mouseOver(9, 2);'
+       onMouseOut='g_mouseOut(9, 2);'
+       onMouseDown='g_mouseDown(9, 2);'
+       onMouseUp='g_mouseUp(9, 2);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_9_3" href="JavaScript:"
+       onMouseOver='g_mouseOver(9, 3);'
+       onMouseOut='g_mouseOut(9, 3);'
+       onMouseDown='g_mouseDown(9, 3);'
+       onMouseUp='g_mouseUp(9, 3);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+  <td>
+    <a id="gb_9_4" href="JavaScript:"
+       onMouseOver='g_mouseOver(9, 4);'
+       onMouseOut='g_mouseOut(9, 4);'
+       onMouseDown='g_mouseDown(9, 4);'
+       onMouseUp='g_mouseUp(9, 4);'>
+    <IMG border="0" hspace="0" vspace="0"
+	 SRC="images/radioButton0_off.png" width="15" height="15 "/>&nbsp;
+    </a>
+  </td>
+</tr>
+</table>
+
+<div id="metaInfo">I N T E R N E T - R A D I O</div>
+<a href="JavaScript:"
+   onMouseDown="s_mouseDown();"><div id="stationInfo">P L A Y E R - I I</div></a>
+<span id="prevStation"> </span>
+<span id="nextStation"> </span>
+
+<!---------- コールドスポット ---------->
+<IMG id="coldspotUL1x1"
+     onMouseOver='hs_mouseOver();'
+     onMouseOut='hs_mouseOut();'
+     border="0" hspace="0" vspace="0"
+     SRC="images/1x1c.png" width="1" height="1" />
+<IMG id="coldspotUR1x1"
+     onMouseOver='hs_mouseOver();'
+     onMouseOut='hs_mouseOut();'
+     border="0" hspace="0" vspace="0"
+     SRC="images/1x1c.png" width="1" height="1" />
+<IMG id="coldspotBL1x1"
+     onMouseOver='hs_mouseOver();'
+     onMouseOut='hs_mouseOut();'
+     border="0" hspace="0" vspace="0"
+     SRC="images/1x1c.png" width="1" height="1" />
+<IMG id="coldspotBR1x1"
+     onMouseOver='hs_mouseOver();'
+     onMouseOut='hs_mouseOut();'
+     border="0" hspace="0" vspace="0"
+     SRC="images/1x1c.png" width="1" height="1" />
+
+</body>
+</html>

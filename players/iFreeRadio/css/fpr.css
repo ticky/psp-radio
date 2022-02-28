@@ -1,0 +1,59 @@
+#bg {
+	background-image: url('../images/BG.png');
+	background-repeat: repeat-x;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 480px;
+	height: 272px;
+	z-index: -1;
+}
+
+body {
+	margin: 20px 0px 0px 0px;
+	color: #FFFFFF;
+}
+
+a {
+	text-decoration: none;
+	color: #eeeeee;
+}
+a:visited { color: #eeeeee; }
+
+a:hover {
+	text-decoration: underline;
+	color: #a0d0ff;
+}
+
+img {
+	border: none;
+}
+
+img.topicon {
+	width: 16px;
+	height: 27px;
+	vertical-align: text-top;
+}
+
+img.navicon {
+	width: 16px;
+	height: 16px;
+	vertical-align: text-top;
+}
+
+#meta {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 480px;
+	height: 20px 
+	background-image: url('../images/BG.png');
+}
+
+#stopbutton {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	text-align: right;
+	z-index: 1;
+}

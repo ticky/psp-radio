@@ -1,0 +1,27 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+#container {
+	text-align: left;
+	width: 480px;
+	margin-right: auto;
+	margin-left: auto;
+	background-image: url(../img/bgiHeader.gif);
+	background-repeat: no-repeat;
+	padding: 55px 0 0;
+}
+#boxInline	{
+	padding: 0 41px 0;
+}
+#footHelp {
+	width: 398px;
+	height: 21px;
+	margin-top: 1em;
+	padding-bottom: 5px;
+	background-image: url(../img/imgFooter.gif);
+	background-repeat: no-repeat;
+}
+.under {
+	text-decoration: underline;
+}

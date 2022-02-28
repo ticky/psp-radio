@@ -1,0 +1,13 @@
+body {
+	background-image: none;
+}
+
+img {
+	border: none;
+}
+
+img.navicon {
+	width: 16px;
+	height: 16px;
+	vertical-align: text-top;
+}
