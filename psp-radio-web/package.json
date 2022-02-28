@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "parcel src/*.html src/scripts/psp-radio-shim.js",
     "build": "parcel build src/*.html src/scripts/psp-radio-shim.js",
-    "deploy": "gh-pages -d dist"
+    "deploy": "parcel build --public-url /psp-radio src/*.html src/scripts/psp-radio-shim.js && gh-pages -d dist"
   },
   "staticFiles": {
     "staticPath": "src/static",
