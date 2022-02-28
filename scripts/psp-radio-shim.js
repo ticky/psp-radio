@@ -19,4 +19,4 @@ module.exports={0:65533,128:8364,130:8218,131:402,132:8222,133:8230,134:8224,135
 },{"entities":"tjr7"}],"b9Cf":[function(require,module,exports) {
 "use strict";var e=t(require("psp-radio-api"));function t(e){return e&&e.__esModule?e:{default:e}}navigator.mimeTypes["application/x-psp-extplugin"]={enabledPlugin:!0},document.addEventListener("DOMContentLoaded",function(){return Array.from(document.querySelectorAll("[id]:not([name])")).forEach(function(e){return e.setAttribute("name",e.id)})}),window.psp=new e.default("https://cors-anywhere.herokuapp.com");
 },{"psp-radio-api":"wKma"}]},{},["b9Cf"], null)
-//# sourceMappingURL=/scripts/psp-radio-shim.js.map
+//# sourceMappingURL=/psp-radio/scripts/psp-radio-shim.js.map
