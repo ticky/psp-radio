@@ -19,6 +19,7 @@
     "flow-bin": "0.122.0"
   },
   "dependencies": {
-    "entities": "^2.0.0"
+    "entities": "^2.0.0",
+    "pls": "^0.1.3"
   }
 }

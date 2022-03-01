@@ -1,5 +1,7 @@
 // @flow
 
+const { parse: parsePLS } = require('pls');
+
 declare var Audio;
 
 type PSPBoolean = 0 | 1;
@@ -171,40 +173,41 @@ export default class PSP {
 
     this._streamMetadataUpdatedAt = Date.now();
 
+    let targetUrl = null;
+
     // If the player is pointed at a downloaded playlist file
     if (this._mainPlayer.src && this._mainPlayer.src.slice(0, 5) === 'data:') {
       // Pull the playlist data back out of the data URI
       const [ type, playlistBase64 ] = this._mainPlayer.src.slice(5).split(';base64,');
-      const playlistLines = atob(playlistBase64).trim().split(/\r?\n/g).filter((line) => line.length > 0);
-
-      let targetUrl = null;
+      const playlist = atob(playlistBase64);
+      const playlistLines = playlist.trim().split(/\r?\n/g).filter((line) => line.length > 0);
 
       if (type === 'audio/x-scpls') {
-        const file1Line = playlistLines.find((line) => /^file1=/i.test(line.trim()));
-        if (file1Line) {
-          targetUrl = file1Line.split('=').slice(1).join('');
-        }
+        const tracks = parsePLS(playlist);
+        targetUrl = tracks[0].uri;
       } else if (type === 'audio/x-mpegurl') {
         targetUrl = playlistLines.find((line) => /^[^#]/i.test(line.trim()));
       }
+    } else if (this._mainPlayer.src) {
+      targetUrl = this._mainPlayer.src;
+    }
 
-      if (targetUrl) {
-        let metaUrl = new URL(targetUrl);
-        let originalPathname = metaUrl.pathname;
-        metaUrl.pathname = '/statistics'
+    if (targetUrl) {
+      let metaUrl = new URL(targetUrl);
+      let originalPathname = metaUrl.pathname;
+      metaUrl.pathname = '/statistics'
 
-        fetch(`${this._requestBaseURL}/${metaUrl.toString()}`, { mode: 'cors' }).then(
-          (response) => {
-            if (response.ok && response.status >= 200 && response.status < 300) {
-              response.text().then((text) => {
-                let xml = (new window.DOMParser()).parseFromString(text, 'application/xml');
+      fetch(`${this._requestBaseURL}/${metaUrl.toString()}`, { mode: 'cors' }).then(
+        (response) => {
+          if (response.ok && response.status >= 200 && response.status < 300) {
+            response.text().then((text) => {
+              let xml = (new window.DOMParser()).parseFromString(text, 'application/xml');
 
-                this._streamMetadata = Array.from(xml.querySelectorAll('STREAM')).find((element) => element.querySelector('STREAMPATH').innerHTML === originalPathname) || null;
-              });
-            }
+              this._streamMetadata = Array.from(xml.querySelectorAll('STREAM')).find((element) => element.querySelector('STREAMPATH').innerHTML === originalPathname) || null;
+            });
           }
-        )
-      }
+        }
+      )
     }
   }
 
@@ -234,7 +237,13 @@ export default class PSP {
 
                 // Playlist format detection
                 if (playlistLines[0] === '[playlist]') {
-                  this._mainPlayer.src = `data:audio/x-scpls;base64,${btoa(text)}`;
+                  // Allow non-Safari browsers to play PLS streams
+                  if (new Audio().canPlayType("audio/x-scpls") === '') {
+                    const tracks = parsePLS(text);
+                    this._mainPlayer.src = tracks[0].uri;
+                  } else {
+                    this._mainPlayer.src = `data:audio/x-scpls;base64,${btoa(text)}`;
+                  }
                 } else if (playlistLines[0] === '#EXTM3U') {
                   this._mainPlayer.src = `data:audio/x-mpegurl;base64,${btoa(text)}`;
                 } else {
