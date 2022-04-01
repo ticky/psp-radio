@@ -3596,10 +3596,10 @@ entities@^1.1.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
   integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
 
-entities@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.0.tgz#68d6084cab1b079767540d80e56a39b423e4abf4"
-  integrity sha512-D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw==
+entities@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/entities/-/entities-4.0.0.tgz#178200738f774678b4e4621d82959851b0e67ab4"
+  integrity sha512-4v2Nrbg5YsidL0sfsj05GSI86KCn2IJX3TlUq11aDUIq0O5iICDGI/WwVUS7hKPBhfoKr9E4e2Jx8A7rDbpg/w==
 
 envinfo@^7.3.1:
   version "7.5.0"
