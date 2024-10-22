@@ -12,9 +12,9 @@
     "document": "documentation build src/** -f html -o docs"
   },
   "devDependencies": {
-    "@babel/cli": "7.8.4",
-    "@babel/core": "7.9.0",
-    "@babel/preset-flow": "7.9.0",
+    "@babel/cli": "7.25.9",
+    "@babel/core": "7.25.9",
+    "@babel/preset-flow": "7.25.9",
     "documentation": "12.3.0",
     "flow-bin": "0.122.0"
   },
