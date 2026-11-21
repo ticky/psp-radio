@@ -3911,10 +3911,10 @@ find-up@^3.0.0:
   dependencies:
     locate-path "^3.0.0"
 
-flow-bin@0.122.0:
-  version "0.122.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.122.0.tgz#c723a2b33b1a70bd10204704ae1dc776d5d89d79"
-  integrity sha512-my8N5jgl/A+UVby9E7NDppHdhLgRbWgKbmFZSx2MSYMRh3d9YGnM2MM+wexpUpl0ftY1IM6ZcUwaAhrypLyvlA==
+flow-bin@0.342.0:
+  version "0.342.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.342.0.tgz#de211291165039f8cc83355575b75a931bd09793"
+  integrity sha512-/ha9+RAUGF+G9o5hnBzpKCP5iZXzms0tMVi1Dp4zNvPfWo3dUF6qE8S0Q2zJMugX3f5DPqE4h3BaFSpWYQjhUA==
 
 flush-write-stream@^1.0.2:
   version "1.1.1"
